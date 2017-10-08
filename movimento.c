@@ -1,23 +1,23 @@
-void movimento(char mapa[TAM][TAM], char tecla, int *posx, int *posy){
+void movimento(char matriz[TAM][TAM], char tecla, int *posx, int *posy){
 
-	if((tecla=='w')&&(mapa[*posx-1][*posy] != 'w')){
-		mapa[*posx][*posy] = ' ';
+	if((tecla=='w')&&(matriz[*posx-1][*posy] != 'w')){
+		matriz[*posx][*posy] = ' ';
 		(*posx)--;
-		mapa[*posx][*posy] = '#';
+		matriz[*posx][*posy] = '#';
 	}
-	if((tecla=='a')&&(mapa[*posx][*posy-1] != 'w')){
-		mapa[*posx][*posy] = ' ';
+	if((tecla=='a')&&(matriz[*posx][*posy-1] != 'w')){
+		matriz[*posx][*posy] = ' ';
 		(*posy)--;
-		mapa[*posx][*posy] = '#';
+		matriz[*posx][*posy] = '#';
 	}
-	if((tecla=='s')&&(mapa[*posx+1][*posy] != 'w')){
-		mapa[*posx][*posy] = ' ';
+	if((tecla=='s')&&(matriz[*posx+1][*posy] != 'w')){
+		matriz[*posx][*posy] = ' ';
 		(*posx)++;
-		mapa[*posx][*posy] = '#';
+		matriz[*posx][*posy] = '#';
 	}
-	if((tecla=='d')&&(mapa[*posx][*posy+1] != 'w')){
-		mapa[*posx][*posy] = ' ';
+	if((tecla=='d')&&(matriz[*posx][*posy+1] != 'w')){
+		matriz[*posx][*posy] = ' ';
 		(*posy)++;
-		mapa[*posx][*posy] = '#';
+		matriz[*posx][*posy] = '#';
 	}
 }
