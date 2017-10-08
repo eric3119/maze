@@ -2,20 +2,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-int TAM, pontuacao=0;
+#define TAM 25
 
-/*struct teste{
-	
-	int i, j, aux, pontuacao=0;
+int pontuacao=0;
+
+struct var{
+
+	int i, j, aux;
 	char mapa[TAM][TAM];
 
-};*/
-
-void desenhar_mapa(char mapa[TAM][TAM]);
-
-#include "progresso.c"
-#include "criar_mapa.c"
-#include "movimento.c"
+};
 
 void desenhar_mapa(char mapa[TAM][TAM]){
 	int i, j;
@@ -31,51 +27,47 @@ void desenhar_mapa(char mapa[TAM][TAM]){
 	}
 }
 
+#include "progresso.c"
+#include "criar_mapa.c"
+#include "movimento.c"
 
 int main(){
 	
 	int jogar=1;
-
+	struct var variaveis;
 	while(jogar){
-
-		do{
-			puts("Digite um numero impar:");
-			scanf("%d", &TAM);
-		}while(TAM%2==0);// verificar numero par
-		
-		int i,j, posx, posy, aux=4;
-		char mapa[TAM][TAM], tecla;
+				
+		int posx, posy;
+		char tecla;
+		posx=posy=1;
 
 		srand(time(NULL));// numero aleatorio
 
 		/* preparar matriz */
-		for(i=0; i<TAM; i++){
-			for(j=0; j<TAM; j++){
-				if((i%2==0)||(j%2==0)){
-					mapa[i][j]='w';
+		for(variaveis.i=0; variaveis.i<TAM; variaveis.i++){
+			for(variaveis.j=0; variaveis.j<TAM; variaveis.j++){
+				if((variaveis.i%2==0)||(variaveis.j%2==0)){
+					variaveis.mapa[variaveis.i][variaveis.j]='w';
 				}else{
-					mapa[i][j]='0';
+					variaveis.mapa[variaveis.i][variaveis.j]='0';
 				}
 			}
 		}
 
-		i=j=posx=posy=1;
-
 		if((TAM/2)%2==0)
-			i=j=(TAM/2)-1;
+			variaveis.i = variaveis.j = (TAM/2)-1;
 		else
-			i=j=(TAM/2);
-		printf("%d", i);
+			variaveis.i = variaveis.j = TAM/2;
+		
+		criar_mapa(&variaveis);
 
-		criar_mapa(mapa, &i, &j, aux);
-
-		mapa[1][1] = '#';
-		mapa[TAM-1][TAM-2] = '+';
-		desenhar_mapa(mapa);
+		variaveis.mapa[1][1] = '#';
+		variaveis.mapa[TAM-1][TAM-2] = '+';
+		desenhar_mapa(variaveis.mapa);
 		do{
 			scanf("%c", &tecla);
-			movimento(mapa, tecla, &posx, &posy);
-			desenhar_mapa(mapa);
+			movimento(variaveis.mapa, tecla, &posx, &posy);
+			desenhar_mapa(variaveis.mapa);
 		}while((posx!=TAM-1)||(posy!=TAM-2));
 
 		pontuacao++;
